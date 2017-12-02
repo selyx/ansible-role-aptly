@@ -1,25 +1,16 @@
 ---
-
 # Configuration management
-
 - name: 'CONFIG | Manage configuration file'
-  become: True
-  become_user: "{{ aptly_user }}"
   template:
     src: "{{ role_path }}/templates/aptly.conf.j2"
     dest: "{{ aptly_user_home }}/.aptly.conf"
-    owner: "{{ aptly_user }}"
-    group: "{{ aptly_group }}"
-    mode: '0700'
-
+    mode: '0600'
 
 - name: 'CONFIG | System archive GPG keys management'
   include: "{{ role_path }}/tasks/archive_gpg_keys.yml"
 
-
 - name: 'CONFIG | Mirror management'
   include: "{{ role_path }}/tasks/mirror_management.yml"
-
 
 - name: 'CONFIG | Repo management'
   include: "{{ role_path }}/tasks/repo_management.yml"

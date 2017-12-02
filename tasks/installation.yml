@@ -1,9 +1,7 @@
 ---
 
 # Installation tasks
-
 - name: 'INSTALL | APT | Import aptly GPG key'
-  become: True
   apt_key:
     id: "{{ aptly_gpg_key }}"
     keyserver: "{{ aptly_gpg_keyserver }}"
@@ -11,7 +9,6 @@
 
 
 - name: 'INSTALL | APT | Manage aptly repository'
-  become: True
   apt_repository:
     repo: "{{ aptly_repository }}"
     update_cache: True
@@ -20,14 +17,12 @@
 
 
 - name: 'INSTALL | GROUP | Ensure aptly group'
-  become : True
   group:
     name: "{{ aptly_group }}"
     gid: "{{ aptly_gid | default(omit) }}"
 
 
 - name: 'INSTALL | USER | Ensure aptly user'
-  become: True
   user:
     name: "{{ aptly_user }}"
     comment: 'User for aptly repository management'
@@ -38,14 +33,12 @@
 
 
 - name: 'INSTALL | USER | Change home permission'
-  become: True
   file:
     dest: "{{ aptly_user_home }}"
     mode: "{{ aptly_user_home_mode }}"
 
 
 - name: 'INSTALL | APT | Install aptly package'
-  become: True
   apt:
     name: "{{ item }}"
     cache_valid_time: 3600

@@ -3,33 +3,27 @@
 # Repos management
 
 - name: 'CONFIG | REPOS | List available repos'
-  become: True
-  shell: >
-    su - {{ aptly_user }} -c 'aptly repo list -raw'
+  command: aptly repo list -raw
   changed_when: False
   register: 'aptly_repos_list'
 
 
 - name: 'CONFIG | REPOS | Remove repos'
-  become: True
-  shell: >
-    su - {{ aptly_user }} -c 'aptly repo drop {{ item.name }}'
+  command: 'aptly repo drop {{ item.name }}'
   register: 'aptly_repos_removed'
-  notify: "HANDLER | Clean aptly database"
-  with_items: "{{ aptly_repos }}"
+  notify: 'HANDLER | Clean aptly database'
+  with_items: '{{ aptly_repos }}'
   when:
-    - "item.state == 'absent'"
-    - "item.name in aptly_repos_list.stdout_lines"
+    - item.state == 'absent'
+    - item.name in aptly_repos_list.stdout_lines
 
 
 - name: 'CONFIG | REPOS | Create repos'
-  become: True
-  shell: >
-    su - {{ aptly_user }} -c 'aptly repo create
+  command: 'aptly repo create
     {{ item.create_flags | join(" ") }}
     {{ item.name }}'
   register: 'aptly_repos_created'
-  with_items: "{{ aptly_repos }}"
+  with_items: '{{ aptly_repos }}'
   when:
-    - "item.state == 'present'"
-    - "item.name not in aptly_repos_list.stdout_lines"
+    - item.state == 'present'
+    - item.name not in aptly_repos_list.stdout_lines
