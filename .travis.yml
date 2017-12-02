@@ -2,7 +2,7 @@
 
 # Travis file for aptly role
 
-dist: 'trusty'
+dist: 'xenial'
 sudo: 'required'
 
 services:
@@ -17,6 +17,8 @@ env:
     - 'ANSIBLE_PKG="ansible>=2.0,<2.1"'
     - 'ANSIBLE_PKG="ansible>=2.1,<2.2"'
     - 'ANSIBLE_PKG="ansible>=2.2,<2.3"'
+    - 'ANSIBLE_PKG="ansible>=2.3,<2.4"'
+    - 'ANSIBLE_PKG="ansible>=2.4,<2.5"'
     - 'ANSIBLE_PKG="git+https://github.com/ansible/ansible.git@devel"'
 
 before_install:
