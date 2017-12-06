@@ -61,7 +61,7 @@ aptly_group   : aptly
 aptly_user_home : "/var/lib/aptly"
 
 # Software settings
-aptly_version       : "0.9.5"
+aptly_version       : "1.1.1"
 aptly_activate_api  : False
 aptly_gpg_key       : E083A3782A194991
 aptly_gpg_keyserver : "hkp://pgp.mit.edu" # "hkp://keys.gnupg.net" : timeout

@@ -40,8 +40,13 @@
 
 - name: 'INSTALL | APT | Install aptly package'
   apt:
-    name: "{{ item }}"
+    name: 'aptly={{ aptly_version }}'
     cache_valid_time: 3600
     update_cache: True
+
+- name: 'INSTALL | APT | Install aptly package'
+  apt:
+    name: '{{ item }}'
     state: 'present'
-  with_items: "{{ aptly_packages }}"
+  with_items:
+    - '{{ aptly_keyring_packages }}'
